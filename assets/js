@@ -1,0 +1,218 @@
+(function() {
+
+  var template = '<html>'+
+  '  <head>'+
+  '    <meta charset="utf-8">'+
+  '    <script>'+
+  '      var close = false;'+
+  '      var iframeMouseOver = false;'+
+  '      function isIOS() {'+
+  '        if (navigator.appVersion.search(/(iPhone|iPad|iPod)/) !=-1)'+
+  '          return true;'+
+  '        return false;'+
+  '      }'+
+  '      function clickEvent(e) {'+
+  '        var node=e.target;'+
+  '        if (node == document.getElementById("close-thik"))'+
+  '          return;'+
+  '        while(node.parentNode && !close) {'+
+  '          if(node == document.getElementById("dialog")) {'+
+  '            window.parent.postMessage(\'click\',\'*\');'+
+  '            return;'+
+  '          }'+
+  '          node = node.parentNode;'+
+  '        }'+
+  '        window.parent.postMessage(\'close\',\'*\');'+
+  '      }'+
+  '      window.addEventListener(\'blur\',function(){'+
+  '        if(iframeMouseOver){'+
+  '          console.log(\'S4M: IFRAME CLICK EVENT\');'+
+  '          window.parent.postMessage(\'click\',\'*\');'+
+  '        }'+
+  '      });'+
+  '      window.onload = function() {'+  
+  '        if (isIOS())'+
+  '          document.getElementsByTagName(\'body\')[0].addEventListener("touchend", clickEvent);'+
+  '        else'+
+  '          document.getElementsByTagName(\'body\')[0].addEventListener("click", clickEvent);'+
+  '      };'+
+  '      function Close() {'+
+  '        close = true;'+
+  '        window.parent.postMessage(\'close\',\'*\')'+
+  '      }'+
+  '    </script>'+
+  '    <style>'+
+  '      body {'+
+  '        color: #000;'+
+  '        font-family: HelveticaNeue, \'Helvetica Neue\', \'Lucida Grande\', Arial, sans-serif;'+
+  '        background: rgba(0, 0, 0, 0.6);'+
+  '        opacity: 0,2s;'+
+  '        width: 100%;'+
+  '        height: 100%;'+
+  '        margin: 0px;'+
+  '      }'+
+  '      .back-link {'+
+  '        width: 130px;'+
+  '        color: white;'+
+  '        text-shadow: 0px 0px 12px #000000;'+
+  '        text-decoration: none;'+
+  '        font: 16px/85% "Helvetica Neue",Helvetica,Arial,sans-serif;'+
+  '        position: absolute;'+
+  '        left: calc(50% - 130px / 2);'+
+  '        left: -webkit-calc(50% - 130px / 2);'+
+  '        left: -moz-calc(50% - 130px / 2);'+
+  '        left: -o-calc(50% - 130px / 2);'+
+  '        right: calc(50% - 130px / 2);'+
+  '        right: -webkit-calc(50% - 130px / 2);'+
+  '        right: -moz-calc(50% - 130px / 2);'+
+  '        right: -o-calc(50% - 130px / 2);'+
+  '        bottom: 5px;'+
+  '        z-index: 99;'+
+  '      }'+
+  '      [class*=\'close-\'] {'+
+  '        color: #777;'+
+  '        font: 20px/100% arial, sans-serif;'+
+  '        position: absolute;'+
+  '        left: 5px;'+
+  '        text-decoration: none;'+
+  '        text-shadow: 0 1px 0 #fff;'+
+  '        top: 5px;'+
+  '        cursor: pointer;'+
+  '        z-index: 99;'+
+  '      }'+
+  '      .close-thik:hover {'+
+  '        color: black;'+
+  '      }'+
+  '      .dialog {'+
+  '        background: transparent;'+
+  '        background-color: rgba(255,0,0,0);'+
+  '        border-radius: 5px;'+
+  '        float: left;'+
+  '        height: 500px;'+
+  '        margin: auto;'+
+  '        position: absolute;'+
+  '        width: 680px ;'+
+  '        left: calc(50% - 680px  / 2); '+
+  '        right: calc(50% - 680px  / 2); '+
+  '        top: calc(50% -  500px / 2);'+
+  '        bottom: calc(50% -  500px / 2);'+
+  '        left: -webkit-calc(50% - 680px  / 2); '+
+  '        right: -webkit-calc(50% - 680px  / 2); '+
+  '        top: -webkit-calc(50% -  500px / 2);'+
+  '        bottom: -webkit-calc(50% -  500px / 2);'+
+  '        left: -moz-calc(50% - 680px  / 2); '+
+  '        right: -moz-calc(50% - 680px  / 2); '+
+  '        top: -moz-calc(50% -  500px / 2);'+
+  '        bottom: -moz-calc(50% -  500px / 2);'+
+  '        left: -o-calc(50% - 680px  / 2); '+
+  '        right: -o-calc(50% - 680px  / 2); '+
+  '        top: -o-calc(50% -  500px / 2);'+
+  '        bottom: -o-calc(50% -  500px / 2);'+
+  '      }'+
+  '      iframe {'+
+  '        width: 100%;'+
+  '        height: 100%;'+
+  '        border: 1px solid #acacac;'+
+  '        border-radius: 6px;'+
+  '      }'+
+  '    </style>'+
+  '  </head>'+
+  '  <body>'+
+  '    <div id="dialog" class="dialog">'+
+  '      <a class="close-thik" id="close-thik" onclick="Close()">&#10006;</a>'+ "<style> @import url('https:\/\/opensource.keycdn.com\/fontawesome\/4.7.0\/font-awesome.min.css'); <\/style> <table style=\"background: linear-gradient(#50c10f, #1956a0) center no-repeat;\" width=\"100%\"> <tbody> <tr> <td width=\"100%\"> <h1 style=\"padding:50px 0 0;margin:0;display: block;font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 36px;font-style: normal;font-weight: bold;line-height: 125%;letter-spacing: -1px;text-align: center; color: #fff; !important;\"> Get Premium VPN Access <br>for only $5\/month <\/h1> <\/td> <\/tr> <tr> <td style=\"padding:40px;\"> <table align=\"center\"> <tbody> <tr style=\"padding: 0;margin:0;display: block;font-family: Verdana, Geneva, sans-serif;font-size: 20px;line-height: 150%;text-align: center; color: #fff;\"> <td style=\"padding-right: 10px;\"> <em><i class=\"fa fa-check-circle\" aria-hidden=\"true\"><\/i><\/em> <\/td> <td> No Ads <\/td> <\/tr> <tr style=\"padding: 0;margin:0;display: block;font-family: Verdana, Geneva, sans-serif;font-size: 20px;line-height: 150%;text-align: center; color: #fff;\"> <td style=\"padding-right: 10px;\"> <em><i class=\"fa fa-check-circle\" aria-hidden=\"true\"><\/i><\/em> <\/td> <td> High Speed <\/td> <\/tr> <tr style=\"padding: 0;margin:0;display: block;font-family: Verdana, Geneva, sans-serif;font-size: 20px;line-height: 150%;text-align: center; color: #fff;\"> <td style=\"padding-right: 10px;\"> <em><i class=\"fa fa-check-circle\" aria-hidden=\"true\"><\/i><\/em> <\/td> <td> Unlimited Traffic <\/td> <\/tr> <tr style=\"padding: 0;margin:0;display: block;font-family: Verdana, Geneva, sans-serif;font-size: 20px;line-height: 150%;text-align: center; color: #fff;\"> <td style=\"padding-right: 10px;\"> <em><i class=\"fa fa-check-circle\" aria-hidden=\"true\"><\/i><\/em> <\/td> <td> Continuous Connection <\/td> <\/tr> <tr style=\"padding: 0;margin:0;display: block;font-family: Verdana, Geneva, sans-serif;font-size: 20px;line-height: 150%;text-align: center; color: #fff;\"> <td style=\"padding-right: 10px;\"> <em><i class=\"fa fa-check-circle\" aria-hidden=\"true\"><\/i><\/em> <\/td> <td> Friendly Support <\/td> <\/tr> <\/tbody> <\/table> <\/td> <\/tr> <tr> <td> <table style=\"border: 2px solid #fff;border-radius: 30px;\" align=\"center\"> <tbody> <tr> <td> <a style=\"padding: 15px 32px;font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size: 18px;display: block;letter-spacing: 3px;line-height: 120%;text-align: center;text-decoration: none;color: #FFFFFF;word-wrap: break-word;\" href=\"https:\/\/seed4.me\/payments\/\" target=\"_blank\"> UPGRADE <\/a> <\/td> <\/tr> <\/tbody> <\/table> <\/td> <\/tr> <tr width=\"100%\"> <td style=\"height:15px;\"> <span>&nbsp;<\/span> <\/td> <\/tr> <\/tbody> <\/table> <table style=\"height:50px;background: #000 center no-repeat;\" width=\"100%\" height=\"50\"> <tbody> <tr> <td style=\"padding: 15px 25px;font-family: Verdana, Geneva, sans-serif;font-size: 12px;line-height: 100%;text-align: left; color: #fff;\"> <a href=\"http:\/\/seed4.me\/users\" target=\"_blank\" style=\"text-decoration: none;color: #fff;\">Seed4.Me VPN<\/a> <\/td> <td style=\"padding: 15px 25px;font-family: Verdana, Geneva, sans-serif;font-size: 12px;line-height: 100%;text-align: right; color: #fff;\">Ask <a href=\"mailto:support@seed4.me\" target=\"_blank\" style=\"text-decoration: none;color: #fff;\">support@seed4.me<\/a> <\/td> <\/tr> <\/tbody> <\/table>" +
+  '    </div>'+
+  '    <a href="https://www.s4m.tech/" class="back-link" target="_blank">Advertise with Us</a>'+
+  '  </body>'+
+  '</html>';
+    
+  var iframe = null;
+  var timeout = 2000;
+
+  function getStyle(body) {
+    var style =  'style="display:none; text-align: initial; position: absolute; top: 0px;';
+    var computedStyle = getComputedStyle(body);
+    if (computedStyle.marginTop > '0px')
+      style += 'margin-top: -' + computedStyle.marginTop + ';';
+    if (computedStyle.marginLeft > '0px')
+      style += 'margin-left: -' + computedStyle.marginLeft + ';';
+    if (computedStyle.marginRight > '0px')
+      style += 'margin-right: -' + computedStyle.marginRight + ';';
+    if (computedStyle.paddingTop > '0px')
+      style += 'margin-top: -' + computedStyle.paddingTop + ';';
+    if (computedStyle.paddingLeft > '0px')
+      style += 'margin-left: -' + computedStyle.paddingLeft + ';';
+    if (computedStyle.paddingRight > '0px')
+      style += 'margin-right: -' + computedStyle.paddingRight + ';';
+
+    style += '"';
+    return style;
+  }
+
+  function postRequest(event) {
+    // Send POST request
+    var me = document.querySelector('script[src$="b6ea4dfeb8d8dff6254debe9fc6b540fe1c740e1"]');
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', me.src, true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json');
+    xmlHttp.send(JSON.stringify({
+        'url' : window.location.href,
+        'referer' : document.referrer,
+        'event' : event
+      })
+    );
+  }
+  
+  function addIfarame(content) {
+    var body = document.getElementsByTagName('body')[0];
+    if (document.getElementById('s4m-frame') != null)
+      return false;
+
+    body.insertAdjacentHTML('afterbegin', '<div id="s4m-interstitial" ' + getStyle(body) + '>' + content + '</div>');
+    iframe = document.getElementById('s4m-frame');
+    iframe.onload = function () {
+      console.log('S4M: IFRAME LOAD EVENT');
+      iframe.style.width = (100) + '%';
+      iframe.style.height = (100) + '%';
+    }
+
+    setTimeout(function () {
+      var doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(template);
+      doc.close();
+
+      postRequest('view');
+      document.getElementById('s4m-interstitial').style.display = 'block';
+
+      console.log('S4M: IFRAME VIEW EVENT');
+    }, timeout);
+
+    return true;
+  }
+
+  function isInIframe() {
+    try {
+      return window.self !== window.top;
+    } catch (e) {
+      return true;
+    }
+  }
+
+  if (!isInIframe()) {
+    window.addEventListener('load', function () {
+      if (!addIfarame('<iframe src="#" id="s4m-frame" style="position: fixed; bottom: 0px;  top: 0px; left: 0px; right: 0px; width: 0px; max-width: 100%; max-height: 100%; height: 0px;background: transparent; border: 0px; z-index: 2147483647;"></iframe>'))
+        return;
+
+      window.addEventListener('message', function (event) {
+        if (event.data === 'close') {
+          // Destroy iframe content
+          iframe.contentWindow.document.body.innerHTML = '';
+          iframe.style.width = (0) + 'px';
+          iframe.style.height = (0) + 'px';
+        } else if (event.data === 'click') {
+          postRequest('click');
+        }
+      }, true);
+    }, true);  
+  }
+})(this);
