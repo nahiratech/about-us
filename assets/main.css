@@ -124,7 +124,7 @@ body, div, td {
 }
 
 span, p {
-	font-size: inherit;
+	font-size: 1.5rem;
 }
 
 small {
